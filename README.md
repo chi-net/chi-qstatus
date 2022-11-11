@@ -2,6 +2,17 @@
 
 A QQ account status checker and report the result to [DingTalk](https://dingtalk.com/) platform.
 
+## How to use?
+
+```shell
+  git clone https://github.com/chi-net/chi-qstatus.git
+  cd chi-qstatus
+  yarn install
+  cp config.sample.ts config.ts
+  (configuration like vim config.ts)
+  yarn start
+```
+
 The QQ account name, password and DingTalk robot credentials are required in `config.sample.ts`.
 You should rename it after change the configuration or you can just copy `config.sample.ts` and write the configuration file in `config.ts`
 

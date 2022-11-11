@@ -50,6 +50,7 @@ function post (uri: string, data: object, conf: object) {
 }
 
 async function checkStatus () {
+  client.logger.mark('checking status...')
   const FSOLREQ = jce.encodeStruct([
     config.uin, 0, 0, null, 1, 31, 0
   ])
@@ -59,7 +60,11 @@ async function checkStatus () {
   rsp.forEach(async element => {
     if (element[0] === config.checkuin) {
       if (status !== element[14]) {
-        await hook('消息:你关注的QQ\'' + client.pickFriend(config.checkuin).info?.nickname + '\'['+ client.pickFriend(config.checkuin).nickname + ']\'(' + config.checkuin + ')的在线状态更改了！最新状态:' + element[14] + '\n' + '更新于' + new Date())
+        client.logger.mark('check successful: status changed.')
+        await hook('消息:你关注的QQ\'' + client.pickFriend(config.checkuin).info?.nickname + '\'['+ client.pickFriend(config.checkuin).nickname + '](' + config.checkuin + ')的在线状态更改了！最新状态:' + element[14] + '\n' + '更新于' + new Date())
+        status = element[14]
+      } else {
+        client.logger.mark('check successful: status not changed.')
       }
     }
   })
